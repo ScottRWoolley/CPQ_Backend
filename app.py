@@ -14,4 +14,4 @@ def answers():
 
 @app.route("/get_question", methods=["GET"])
 def get_question():
-    return(100)
+    return("100")
