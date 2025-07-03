@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 import os
+import json
 
 app = Flask(__name__)
 
@@ -31,13 +32,13 @@ def upload_data(collection, data):
 
 @app.route("/answers", methods=["POST"])
 def answers():
-    data = request.get_json()
+    data = json.loads(request.get_json())
     upload_data("Answers", data)
 
 @app.route("/get_questions", methods=["GET"])
 def get_questions():
-    return get_data("Questions")
+    return jsonify(get_data("Questions")[0])
 
 @app.route("/get_points", methods=["GET"])
 def get_points():
-    return get_data("Points")
+    return jsonify(get_data("Points")[0])
