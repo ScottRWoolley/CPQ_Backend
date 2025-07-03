@@ -37,8 +37,8 @@ def answers():
 
 @app.route("/get_questions", methods=["GET"])
 def get_questions():
-    return jsonify(get_data("Questions"))
+    return jsonify(get_data("Questions")[0])
 
 @app.route("/get_points", methods=["GET"])
 def get_points():
-    return jsonify(get_data("Points"))
+    return jsonify(get_data("Points")[0])
