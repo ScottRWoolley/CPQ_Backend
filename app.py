@@ -37,8 +37,18 @@ def answers():
 
 @app.route("/get_questions", methods=["GET"])
 def get_questions():
-    return jsonify(get_data("Questions")[0])
+    documents = list(db["Questions"].find(dict()))
+    filtered = []
+    for document in documents:
+        document.pop("_id")
+        filtered.append(document)
+    return jsonify(filtered[0])
 
 @app.route("/get_points", methods=["GET"])
 def get_points():
-    return jsonify(get_data("Points")[0])
+    documents = list(db["Points"].find(dict()))
+    filtered = []
+    for document in documents:
+        document.pop("_id")
+        filtered.append(document)
+    return jsonify(filtered[0])
