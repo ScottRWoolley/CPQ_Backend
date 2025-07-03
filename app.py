@@ -6,8 +6,8 @@ import json
 app = Flask(__name__)
 
 # Load MongoDB URI from environment variable
-MONGO_URI = os.environ.get("MONGO_URI")
-client = MongoClient(MONGO_URI, 1678)
+MONGO_URL = os.environ.get("MONGO_URL")
+client = MongoClient(MONGO_URL)
 db = client.Data
 
 def get_data(collection, query = dict()):
@@ -37,18 +37,8 @@ def answers():
 
 @app.route("/get_questions", methods=["GET"])
 def get_questions():
-    documents = list(db["Questions"].find(dict()))
-    filtered = []
-    for document in documents:
-        document.pop("_id")
-        filtered.append(document)
-    return jsonify(filtered[0])
+    return jsonify(get_data("Questions")[0])
 
 @app.route("/get_points", methods=["GET"])
 def get_points():
-    documents = list(db["Points"].find(dict()))
-    filtered = []
-    for document in documents:
-        document.pop("_id")
-        filtered.append(document)
-    return jsonify(filtered[0])
+    return jsonify(get_data("Points")[0])
