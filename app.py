@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # Load MongoDB URI from environment variable
 MONGO_URI = os.environ.get("MONGO_URI")
-client = MongoClient(MONGO_URI)
+client = MongoClient(MONGO_URI, 1678)
 db = client.Data
 
 def get_data(collection, query = dict()):
