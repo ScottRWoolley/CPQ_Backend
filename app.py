@@ -1,9 +1,11 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 from pymongo import MongoClient
 import os
 import json
 
 app = Flask(__name__)
+CORS(app)  # Allow all origins by default
 
 # Load MongoDB URI from environment variable
 MONGO_URL = os.environ.get("MONGO_URL")
@@ -32,13 +34,9 @@ def upload_data(collection, data):
 
 @app.route("/answers", methods=["POST"])
 def answers():
-    data = json.loads(request.get_json())
-    upload_data("Answers", data)
+    data = request.get_json()
+    return jsonify({"status": "received"}), 200
 
-@app.route("/get_questions", methods=["GET"])
-def get_questions():
-    return jsonify(get_data("Questions")[0])
-
-@app.route("/get_points", methods=["GET"])
-def get_points():
-    return jsonify(get_data("Points")[0])
+@app.route("/get_question", methods=["GET"])
+def get_question():
+    return jsonify(100)
